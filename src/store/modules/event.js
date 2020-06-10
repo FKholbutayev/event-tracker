@@ -1,4 +1,7 @@
 import EventService from '@/services/EventService'
+
+export const namespaced = true
+
 export const state = {
   events: [],
   event: {},
@@ -21,32 +24,54 @@ export const mutations = {
 }
 
 export const actions = {
-  createEvent({ commit }, event) {
-    EventService.postEvent(event).then(() => {
-      commit('ADD_EVENT', event.data)
-    })
+  createEvent({ commit, dispatch }, event) {
+    return EventService.postEvent(event)
+      .then(() => {
+        commit('ADD_EVENT', event.data)
+        const notification = {
+          type: 'success',
+          message: 'Event has been created'
+        }
+        dispatch('notification/add', notification, { root: true })
+      })
+      .catch(error => {
+        const notification = {
+          type: 'error',
+          message: 'Failed to add an event' + error.message
+        }
+        dispatch('notification/add', notification, { root: true })
+        throw error
+      })
   },
-  fetchEvents({ commit }, { perPage, page }) {
-    EventService.getEvents(perPage, page)
+  fetchEvents({ commit, dispatch }, { perPage, page }) {
+    return EventService.getEvents(perPage, page)
       .then(response => {
         commit('SET_EVENTS', response.data)
         commit('SET_EVENTS_TOTAL', response.headers['x-total-count'])
       })
       .catch(error => {
-        console.log('error in actions', error)
+        const notification = {
+          type: 'error',
+          message: 'There was a problem fetching events: ' + error.message
+        }
+        dispatch('notification/add', notification, { root: true })
       })
   },
-  fetchEvent({ commit, getters }, id) {
+  fetchEvent({ commit, getters, dispatch }, id) {
     let event = getters.getEventById(id)
     if (event) {
       commit('SET_EVENT', event)
     } else {
-      EventService.getEvent(id)
+      return EventService.getEvent(id)
         .then(response => {
           commit('SET_EVENT', response.data)
         })
         .catch(error => {
-          console.log('error in getEventById', error)
+          const notification = {
+            type: 'error',
+            message: 'There was a problem fectching an event' + error.message
+          }
+          dispatch('notification/add', notification, { root: true })
         })
     }
   }

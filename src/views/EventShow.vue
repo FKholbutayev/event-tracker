@@ -30,7 +30,7 @@
 
 <script>
 import EventService from '@/services/EventService.js'
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 export default {
   props: {
     id: [String, Number]
@@ -41,7 +41,10 @@ export default {
     })
   },
   created() {
-    this.$store.dispatch('fetchEvent', this.id)
+    this.fetchEvent(this.id)
+  },
+  methods: {
+    ...mapActions('event', ['fetchEvent'])
   }
 }
 </script>
