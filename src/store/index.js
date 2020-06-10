@@ -21,6 +21,9 @@ export default new Vuex.Store({
   mutations: {
     ADD_EVENT(state, event) {
       state.events.push(event)
+    },
+    SET_EVENTS(state, events) {
+      state.events = events
     }
   },
   actions: {
@@ -28,6 +31,15 @@ export default new Vuex.Store({
       EventService.postEvent(event).then(() => {
         commit('ADD_EVENT', event.data)
       })
+    },
+    fetchEvents({ commit }, { perPage, page }) {
+      EventService.getEvents(perPage, page)
+        .then(response => {
+          commit('SET_EVENTS', response.data)
+        })
+        .catch(error => {
+          console.log('error in actions', error)
+        })
     }
   },
   modules: {},
