@@ -36,7 +36,9 @@ export default {
     id: [String, Number]
   },
   computed: {
-    ...mapState(['event'])
+    ...mapState({
+      event: state => state.event.event
+    })
   },
   created() {
     this.$store.dispatch('fetchEvent', this.id)
