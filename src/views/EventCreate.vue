@@ -1,9 +1,21 @@
 <template>
-  <div>Event create</div>
+  <div>
+    <div>Event created by {{ user.name }}</div>
+    <p>Categories {{ catLegth }}</p>
+  </div>
 </template>
 
 <script>
-export default {}
+import { mapState } from 'vuex'
+
+export default {
+  computed: {
+    catLegth() {
+      return this.$store.getters.catLength
+    },
+    ...mapState(['user', 'categories'])
+  }
+}
 </script>
 
-<style lang="scss" scoped></style>
+<style scoped></style>
