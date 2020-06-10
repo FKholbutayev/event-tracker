@@ -1,5 +1,5 @@
 <template>
-  <form>
+  <form @submit.prevent="createEvent">
     <label>Select a category</label>
     <select v-model="event.category">
       <option v-for="cat in categories" :key="cat">{{ cat }}</option>
@@ -80,6 +80,14 @@ export default {
         time: '',
         attendees: []
       }
+    },
+    createEvent() {
+      this.$store
+        .dispatch('createEvent', this.event)
+        .then(() => {
+          this.event = this.createFreshEvent()
+        })
+        .catch(error => console.log('error in eventcreate.vue'))
     }
   }
 }
