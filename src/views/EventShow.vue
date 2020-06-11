@@ -33,18 +33,10 @@ import EventService from '@/services/EventService.js'
 import { mapState, mapActions } from 'vuex'
 export default {
   props: {
-    id: [String, Number]
-  },
-  computed: {
-    ...mapState({
-      event: state => state.event.event
-    })
-  },
-  created() {
-    this.fetchEvent(this.id)
-  },
-  methods: {
-    ...mapActions('event', ['fetchEvent'])
+    event: {
+      type: Object,
+      required: true
+    }
   }
 }
 </script>

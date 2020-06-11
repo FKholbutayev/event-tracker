@@ -72,6 +72,20 @@
       "date": "2020-06-03T14:17:00.000Z",
       "time": "18:00",
       "attendees": []
+    },
+    {
+      "id": 8211406,
+      "category": "housing",
+      "organizer": {
+        "id": "abc123",
+        "name": "Farhad"
+      },
+      "title": "sdsddsds",
+      "description": "dsdsd",
+      "location": "dsds",
+      "date": "2020-06-03T11:02:00.000Z",
+      "time": "19:00",
+      "attendees": []
     }
   ]
 }
