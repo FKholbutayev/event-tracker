@@ -20,26 +20,41 @@
 </template>
 
 <script>
-import axios from 'axios'
 import EventCard from '@/components/EventCard.vue'
-import EventService from '@/services/EventService.js'
 import { mapState } from 'vuex'
+import store from '@/store/store'
+
+function getPageEvents(routeTo, next) {
+  const currentPage = parseInt(routeTo.query.page || 1)
+  store
+    .dispatch('event/fetchEvents', {
+      page: currentPage
+    })
+    .then(() => {
+      routeTo.params.page = currentPage
+      next()
+    })
+}
 
 export default {
   components: {
     EventCard
   },
-
-  created() {
-    this.$store.dispatch('event/fetchEvents', {
-      perPage: 3,
-      page: this.page
-    })
+  props: {
+    page: {
+      type: Number,
+      required: true
+    }
   },
+
+  beforeRouteEnter(routeTo, routeFrom, next) {
+    getPageEvents(routeTo, next)
+  },
+  beforeRouteUpdate(routeTo, routeFrom, next) {
+    getPageEvents(routeTo, next)
+  },
+
   computed: {
-    page() {
-      return parseInt(this.$route.query.page) || 1
-    },
     hasNextPage() {
       return this.event.eventsTotal > this.page * 3
     },
