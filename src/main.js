@@ -5,9 +5,11 @@ import store from './store/store'
 import 'nprogress/nprogress.css'
 
 import BaseIcon from '@/baseComponents/BaseIcon'
+import BaseInput from '@/baseComponents/BaseInput'
 
 //globally register base components
 Vue.component('BaseIcon', BaseIcon)
+Vue.component('BaseInput', BaseInput)
 
 Vue.config.productionTip = false
 
