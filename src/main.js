@@ -7,11 +7,13 @@ import 'nprogress/nprogress.css'
 import BaseIcon from '@/baseComponents/BaseIcon'
 import BaseInput from '@/baseComponents/BaseInput'
 import BaseSelect from '@/baseComponents/BaseSelect'
+import BaseButton from '@/baseComponents/BaseButton'
 
 //globally register base components
 Vue.component('BaseIcon', BaseIcon)
 Vue.component('BaseInput', BaseInput)
 Vue.component('BaseSelect', BaseSelect)
+Vue.component('BaseButton', BaseButton)
 
 Vue.config.productionTip = false
 

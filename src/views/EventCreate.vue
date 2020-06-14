@@ -39,7 +39,7 @@
     <div class="field">
       <BaseSelect label="Select a time" :options="times" v-model="event.time" />
     </div>
-    <input type="submit" class="button -fill-gradient" value="Submit" />
+    <BaseButton type="submit"> Submit </BaseButton>
   </form>
 </template>
 

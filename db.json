@@ -198,6 +198,20 @@
       "date": "2020-06-10T13:19:00.000Z",
       "time": "19:00",
       "attendees": []
+    },
+    {
+      "id": 9242920,
+      "category": "nature",
+      "organizer": {
+        "id": "abc123",
+        "name": "Farhad"
+      },
+      "title": "Invite Sultan for barbeque",
+      "description": "get family together",
+      "location": "malmoe",
+      "date": "2020-06-03T21:04:00.000Z",
+      "time": "11:00",
+      "attendees": []
     }
   ]
 }
