@@ -49,6 +49,7 @@
 import { mapState } from 'vuex'
 import Datepicker from 'vuejs-datepicker'
 import NProgress from 'nprogress'
+import { required } from 'vuelidate/lib/validators'
 
 export default {
   components: {
@@ -64,6 +65,16 @@ export default {
       event: this.createFreshEvent(),
       times,
       categories: this.$store.state.categories
+    }
+  },
+  validations: {
+    event: {
+      category: { required },
+      title: { required },
+      description: { required },
+      location: { required },
+      date: { required },
+      time: { required }
     }
   },
   methods: {
