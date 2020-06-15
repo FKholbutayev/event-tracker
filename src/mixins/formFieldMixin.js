@@ -1,4 +1,4 @@
-export default formFieldMixin = {
+export const formFieldMixin = {
   inheritAttrs: false,
   props: {
     label: {
