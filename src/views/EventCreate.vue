@@ -16,10 +16,17 @@
     <div class="field">
       <BaseInput
         label="Title"
-        v-model="event.title"
+        v-model.trim="event.title"
         type="text"
         placeholder="Add an event title"
+        :class="{ error: $v.event.title.$error }"
+        @blur="$v.event.title.$touch()"
       />
+      <template v-if="$v.event.title.$error">
+        <p v-if="!$v.event.title.required" class="errorMessage">
+          Title is required.
+        </p>
+      </template>
     </div>
     <div class="field">
       <BaseInput
@@ -27,7 +34,14 @@
         v-model="event.description"
         type="text"
         placeholder="Add a description"
+        :class="{ error: $v.event.description.$error }"
+        @blur="$v.event.description.$touch()"
       />
+      <template v-if="$v.event.description.$error">
+        <p v-if="!$v.event.description.required" class="errorMessage">
+          Description is required.
+        </p>
+      </template>
     </div>
     <h3>Where is your event?</h3>
     <div class="field">
@@ -36,13 +50,30 @@
         v-model="event.location"
         type="text"
         placeholder="Add a location"
+        :class="{ error: $v.event.location.$error }"
+        @blur="$v.event.location.$touch()"
       />
+      <template v-if="$v.event.location.$error">
+        <p v-if="!$v.event.location.required" class="errorMessage">
+          Location is required
+        </p>
+      </template>
     </div>
     <h3>When is your event?</h3>
     <div class="field">
       <label>Date</label>
-      <datepicker v-model="event.date" placeholder="Select a date" />
+      <datepicker
+        @opened="$v.event.date.$touch()"
+        v-model="event.date"
+        :input-class="{ error: $v.event.date.$error }"
+        placeholder="Select a date"
+      />
     </div>
+    <template v-if="!$v.event.date.$error">
+      <p v-if="!$v.event.date.required" class="errorMessage">
+        Date is required.
+      </p>
+    </template>
     <div class="field">
       <BaseSelect
         label="Select a time"
