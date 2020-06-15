@@ -88,9 +88,16 @@
         Time is required
       </p>
     </template>
-    <BaseButton buttonClass="-fill-gradient" type="submit">
+    <BaseButton
+      buttonClass="-fill-gradient"
+      :disabled="$v.$anyError"
+      type="submit"
+    >
       Submit
     </BaseButton>
+    <p v-if="$v.$anyError" class="errorMessage">
+      Please fill out the required field(s).
+    </p>
   </form>
 </template>
 
@@ -143,19 +150,22 @@ export default {
       }
     },
     createEvent() {
-      NProgress.start()
-      this.$store
-        .dispatch('event/createEvent', this.event)
-        .then(() => {
-          this.$router.push({
-            name: 'event-show',
-            params: { id: this.event.id }
+      this.$v.$touch()
+      if (!this.$v.$invalid) {
+        NProgress.start()
+        this.$store
+          .dispatch('event/createEvent', this.event)
+          .then(() => {
+            this.$router.push({
+              name: 'event-show',
+              params: { id: this.event.id }
+            })
+            this.event = this.createFreshEvent()
           })
-          this.event = this.createFreshEvent()
-        })
-        .catch(() => {
-          NProgress.done()
-        })
+          .catch(() => {
+            NProgress.done()
+          })
+      }
     }
   }
 }
