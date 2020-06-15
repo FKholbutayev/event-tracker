@@ -83,7 +83,7 @@
         @blur="$v.event.time.$touch()"
       />
     </div>
-    <template v-if="$v.event.time.$error">
+    <template v-if="!$v.event.time.$error">
       <p v-if="!$v.event.time.required" class="errorMessage">
         Time is required
       </p>
